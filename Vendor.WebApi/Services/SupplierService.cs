@@ -5,19 +5,23 @@ namespace Vendor.WebApi.Services
 {
     public class SupplierService
     {
-        public bool ArticleInInventory(int id)
+        private bool ArticleInInventory(int id)
         {
             return new Random().NextDouble() >= 0.5;
         }
 
         public Article GetArticle(int id)
         {
-            return new Article()
+            Models.Data.ArticleData articleData = new Models.Data.ArticleData()
             {
                 ID = id,
-                Name_of_article = $"Article {id}",
-                ArticlePrice = new Random().Next(100,500)
+                Name = $"Article {id}",
+                Price = new Random().Next(100, 500)
             };
+
+            Article article = (Article)new RealArticle(articleData);
+
+            return ArticleInInventory(id) ? article : new FakeArticle();
         }
     }
 }

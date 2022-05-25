@@ -126,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\Data\ArticleData.cs" />
+    <Compile Include="Models\FakeArticle.cs" />
+    <Compile Include="Models\RealArticle.cs" />
     <Compile Include="Services\DatabaseDriver.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Controllers\SupplierController.cs" />

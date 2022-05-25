@@ -6,14 +6,14 @@ namespace Vendor.WebApi.Services
 {
     public class DatabaseDriver
     {
-        private List<Article> _articles = new List<Article>();
+        private List<RealArticle> _articles = new List<RealArticle>();
 
-        public Article GetById(int id)
+        public RealArticle GetById(int id)
         {
             return _articles.Single(x => x.ID == id);
         }
 
-        public void Save(Article article)
+        public void Save(RealArticle article)
         {
             _articles.Add(article);
         }

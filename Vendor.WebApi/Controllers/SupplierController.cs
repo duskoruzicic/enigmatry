@@ -19,25 +19,12 @@ namespace Vendor.WebApi.Controllers
             _supplierService = new SupplierService();
         }
 
-        public bool ArticleInInventory(int id)
-        {
-            return _supplierService.ArticleInInventory(id);
-        }
-
         public Article GetArtice(int id)
         {
-            var articleExists = _supplierService.ArticleInInventory(id);
-            if (articleExists)
-            {
-                return _supplierService.GetArticle(id);
-            }
-            else
-            {
-                throw new Exception("Article does not exist.");
-            }
+            return _supplierService.GetArticle(id);
         }
 
-        public void BuyArticle(Article article, int buyerId)
+        public void BuyArticle(RealArticle article, int buyerId)
         {
             var id = article.ID;
             if (article == null)
@@ -49,7 +36,7 @@ namespace Vendor.WebApi.Controllers
 
             article.IsSold = true;
             article.SoldDate = DateTime.Now;
-            article.BuyerUserId = buyerId;
+            article.BuyerId = buyerId;
 
             try
             {

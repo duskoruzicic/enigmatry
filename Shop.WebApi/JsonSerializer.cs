@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Shop.WebApi
 {
-    public class JsonSerializer
+    public class JsonSerializer : IJsonSerializer
     {
         private readonly JsonSerializerSettings settings;
 

@@ -6,15 +6,24 @@ using Shop.WebApi.Services.Interfaces;
 
 namespace Shop.WebApi.Services
 {
-    public class DealerBIH : ArticleStorage, IDealerBIH
+    public class Dealer : ArticleStorage, IDealer
     {
-        private readonly string _supplierUrl;
-        private readonly ApiCaller _apicaller;
+        private string _supplierUrl;
+        private  ApiCaller _apicaller;
+        private IJsonSerializer _jsonSerializer;
 
-        public DealerBIH()
+        public Dealer()
         {
-            _supplierUrl = ConfigurationManager.AppSettings["Dealer2Url"];
+            _supplierUrl = ConfigurationManager.AppSettings["Dealer"];
             _apicaller = new ApiCaller();
+            _jsonSerializer = new JsonSerializer();
+        }
+
+        public Dealer(IJsonSerializer jsonSerializer)
+        {
+            _supplierUrl = ConfigurationManager.AppSettings["Dealer"];
+            _apicaller = new ApiCaller();
+            _jsonSerializer = jsonSerializer;
         }
 
         protected override bool ArticleInInventory(int id)

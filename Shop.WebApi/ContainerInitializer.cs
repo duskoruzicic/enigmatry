@@ -23,10 +23,10 @@ namespace Shop.WebApi
                            .As<ICachedSupplier>();
             objContainer.RegisterType<Warehouse>()
                            .As<IWarehouse>();
-            objContainer.RegisterType<DealerRS>()
-                           .As<IDealerRS>();
-            objContainer.RegisterType<DealerBIH>()
-                           .As<IDealerBIH>();
+            objContainer.RegisterType<Dealer>()
+                           .As<IDealer>();
+            objContainer.RegisterType<JsonSerializer>()
+                          .As<IJsonSerializer>();
 
 
             objContainer.RegisterApiControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();

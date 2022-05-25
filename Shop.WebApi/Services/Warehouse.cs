@@ -7,9 +7,10 @@ namespace Shop.WebApi.Services
 {
     public class Warehouse : ArticleStorage, IWarehouse
     {
+
         protected override bool ArticleInInventory(int id)
         {
-            return new Random().NextDouble() >= 0.5;
+            return true;
         }
 
         public override Article GetArticle(int id, int maxExpectedPrice)
@@ -24,7 +25,7 @@ namespace Shop.WebApi.Services
             RealArticle article = new RealArticle(articleData);
 
             return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article :
-                                                                new DealerRS().GetArticle(id, maxExpectedPrice);
+                                                                new Dealer().GetArticle(id, maxExpectedPrice);
         }
     }
 }

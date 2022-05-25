@@ -19,14 +19,17 @@ namespace Shop.WebApi.Controllers
         private Logger logger;
         private DbRepository dbRepository;
         private ICachedSupplier _cachedSupplier;
+        private IDealer _dealer;
 
 
 
-        public ShopController(ICachedSupplier cachedSupplier)
+        public ShopController(ICachedSupplier cachedSupplier,
+                             IDealer dealer)
         {
             dbRepository = RepositoryFactory.CreateDbRepository();
             logger = Logger.Instance;
             _cachedSupplier = cachedSupplier;
+            _dealer = dealer;
         }
 
         [HttpGet]
@@ -82,6 +85,13 @@ namespace Shop.WebApi.Controllers
                 logger.Error(ex.Message);
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
+        }
+
+        [HttpGet]
+        [Route("ArticleInInventory")]
+        public bool ArticleInDealerInventory(int id)
+        {
+            return true;
         }
     }
 }

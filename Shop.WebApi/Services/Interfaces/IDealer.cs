@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.WebApi.Services.Interfaces
 {
-    public interface IDealerRS : IArticleStorage
+    public interface IDealer : IArticleStorage
     {
     }
 }

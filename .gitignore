@@ -6,3 +6,5 @@
 /Vendor.WebApi/bin
 /Shared/bin/Debug
 /Shared/obj/Debug
+/Tests/bin/Debug/net48
+/Tests/obj

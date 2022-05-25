@@ -12,13 +12,13 @@ using Shop.WebApi.Services.Interfaces;
 
 namespace Tests
 {
-    [TestFixture]
-    public class DealerTests : IArticleStorageTests
-    {
-        public override IArticleStorage CreateSut()
-        {
-            Mock<IJsonSerializer> mockJsonSerializer = new Mock<IJsonSerializer>();
-            return new Dealer( mockJsonSerializer.Object);
-        }
-    }
+    //[TestFixture]
+    //public class DealerTests : IArticleStorageTests
+    //{
+    //    public override IArticleStorage CreateSut()
+    //    {
+    //        Mock<IJsonSerializer> mockJsonSerializer = new Mock<IJsonSerializer>();
+    //        return new Dealer( mockJsonSerializer.Object);
+    //    }
+    //}
 }

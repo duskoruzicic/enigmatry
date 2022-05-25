@@ -19,7 +19,7 @@ namespace Shop.WebApi.Services
             {
                 ID = id,
                 Name = $"Article {id}",
-                Price = new Random().Next(100, 500)
+                Price = new Random().Next(50, 190)
             };
 
             RealArticle article = new RealArticle(articleData);

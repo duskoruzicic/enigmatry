@@ -20,6 +20,8 @@ namespace Tests
         private ApiCaller _apicaller;
         private Mock<IJsonSerializer> mockJsonSerializer;
 
+        private TestBuilder testBuilder;
+
 
         private string responseBody;
 
@@ -28,6 +30,7 @@ namespace Tests
         {
             _apicaller = new ApiCaller();
             mockJsonSerializer = new Mock<IJsonSerializer>();
+            testBuilder = new TestBuilder();
         }
         public abstract IArticleStorage CreateSut();
 
@@ -40,10 +43,7 @@ namespace Tests
             int maxExpectedPrice = 200;
             articleStorage = CreateSut();
 
-            Article articleinput = new FakeArticle()
-            {
-                Name = "ArticleS 1"
-            }; 
+            Article articleinput = testBuilder.MakeInputArticleWithIdOne();
             responseBody = new JsonSerializer().Serialize<Article>(articleinput);
             mockJsonSerializer.Setup(m => m.Deserialize<Article>(It.IsAny<string>())).Returns(articleinput);
 
@@ -62,10 +62,7 @@ namespace Tests
             int maxExpectedPrice = 200;
             articleStorage = CreateSut();
 
-            Article articleinput = new FakeArticle()
-            {
-                Name = "Article 0"
-            };
+            Article articleinput = testBuilder.MakeInputArticleWithIdZero();
             responseBody = new JsonSerializer().Serialize<Article>(articleinput);
             mockJsonSerializer.Setup(m => m.Deserialize<Article>(It.IsAny<string>())).Returns(articleinput);
 

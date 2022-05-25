@@ -5,7 +5,7 @@ using Shop.WebApi.Models;
 
 namespace Shop.WebApi.Services
 {
-    public class Dealer1
+    public class Dealer1 : ArticleStorage, IArticleStorage
     {
         private readonly string _supplierUrl;
 
@@ -14,7 +14,7 @@ namespace Shop.WebApi.Services
             _supplierUrl = ConfigurationManager.AppSettings["Dealer2Url"];
         }
 
-        public bool ArticleInInventory(int id)
+        protected override bool ArticleInInventory(int id)
         {
             using (var client = new HttpClient())
             {
@@ -25,14 +25,15 @@ namespace Shop.WebApi.Services
             }
         }
 
-        public Article GetArticle(int id)
+        public override Article GetArticle(int id, int maxExpectedPrice)
         {
             using (var client = new HttpClient())
             {
                 var response = client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{_supplierUrl}/ArticleInInventory/{id}"));
                 var article = JsonConvert.DeserializeObject<Article>(response.Result.Content.ReadAsStringAsync().Result);
 
-                return article;
+                return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article 
+                                                                        : new Dealer2().GetArticle(id, maxExpectedPrice);
             }
         }
     }

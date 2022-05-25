@@ -25,14 +25,14 @@ namespace Shop.WebApi.Services
             }
         }
 
-        public Article GetArticle(int id)
+        public Article GetArticle(int id, int maxExpectedPrice)
         {
             using (var client = new HttpClient())
             {
                 var response = client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{_supplierUrl}/Supplier/ArticleInInventory/{id}"));
                 var article = JsonConvert.DeserializeObject<Article>(response.Result.Content.ReadAsStringAsync().Result);
 
-                return article;
+                return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article : null;
             }
         }
     }

@@ -3,21 +3,24 @@ using Shop.WebApi.Models;
 
 namespace Shop.WebApi.Services
 {
-    public class Warehouse
+    public class Warehouse : ArticleStorage, IArticleStorage
     {
-        public bool ArticleInInventory(int id)
+        protected override bool ArticleInInventory(int id)
         {
             return new Random().NextDouble() >= 0.5;
         }
 
-        public Article GetArticle(int id)
+        public override Article GetArticle(int id, int maxExpectedPrice)
         {
-            return new Article()
+            Article article = new Article()
             {
                 ID = id,
                 Name_of_article = $"Article {id}",
                 ArticlePrice = new Random().Next(100, 500)
             };
+
+            return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article :
+                                                                new Dealer1().GetArticle(id, maxExpectedPrice);
         }
     }
 }

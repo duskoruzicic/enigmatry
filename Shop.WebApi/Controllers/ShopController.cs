@@ -25,47 +25,15 @@ namespace Shop.WebApi.Controllers
             Dealer2 = new Dealer2();
         }
 
-        [HttpGet()]
+        [HttpGet]
+        [Route("shop/getarticle")]
         public Article GetArtice(int id, int maxExpectedPrice = 200)
         {
-            Article article = null;
-            Article tmp = null;
-            var articleExists = CachedSupplier.ArticleInInventory(id);
-            if (articleExists)
+            Article article = CachedSupplier.GetArticle(id, maxExpectedPrice);
+
+            if (article != null)
             {
-                tmp = CachedSupplier.GetArticle(id);
-                if (maxExpectedPrice < tmp.ArticlePrice)
-                {
-                    articleExists = Warehouse.ArticleInInventory(id);
-                    if (articleExists)
-                    {
-                        tmp = Warehouse.GetArticle(id);
-                        if (maxExpectedPrice < tmp.ArticlePrice)
-                        {
-                            articleExists = Dealer1.ArticleInInventory(id);
-                            if (articleExists)
-                            {
-                                tmp = Dealer1.GetArticle(id);
-                                if (maxExpectedPrice < tmp.ArticlePrice)
-                                {
-                                    articleExists = Dealer2.ArticleInInventory(id);
-                                    if (articleExists)
-                                    {
-                                        tmp = Dealer2.GetArticle(id);
-                                        if (maxExpectedPrice < tmp.ArticlePrice)
-                                        {
-                                            article = tmp;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (article != null)
-                    {
-                        CachedSupplier.SetArticle(article);
-                    }
-                }
+                CachedSupplier.SetArticle(article);
             }
 
             return article;

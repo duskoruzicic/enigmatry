@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Shop.WebApi.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Shop.WebApi.Models;
+using System.Web;
 
-namespace Shop.WebApi.Services
+namespace Shop.WebApi.Repositories
 {
-    public class Db
+    public class DbRepository
     {
         private List<Article> _articles = new List<Article>();
 

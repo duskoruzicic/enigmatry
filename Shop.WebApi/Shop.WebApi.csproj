@@ -126,8 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Repositories\DbRepository.cs" />
+    <Compile Include="Repositories\RepositoryFactory.cs" />
     <Compile Include="Services\ArticleStorage.cs" />
-    <Compile Include="Services\Db.cs" />
     <Compile Include="Services\IArticleStorage.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Controllers\ShopController.cs" />

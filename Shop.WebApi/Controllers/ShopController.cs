@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Web.Http;
 using Shop.WebApi.Models;
+using Shop.WebApi.Repositories;
 using Shop.WebApi.Services;
 
 namespace Shop.WebApi.Controllers
 {
     public class ShopController : ApiController
     {
-        private Db Db;
         private Logger logger;
+        private DbRepository dbRepository;
 
         private CachedSupplier CachedSupplier;
         private Warehouse Warehouse;
@@ -17,7 +18,7 @@ namespace Shop.WebApi.Controllers
 
         public ShopController()
         {
-            Db = new Db();
+            dbRepository = RepositoryFactory.CreateDbRepository();
             logger = new Logger();
             CachedSupplier = new CachedSupplier();
             Warehouse = new Warehouse();
@@ -56,7 +57,7 @@ namespace Shop.WebApi.Controllers
 
             try
             {
-                Db.Save(article);
+                dbRepository.Save(article);
                 logger.Info("Article with id " + id + " is sold.");
             }
             catch (ArgumentNullException ex)

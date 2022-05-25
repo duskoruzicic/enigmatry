@@ -7,6 +7,7 @@ using System.Web.Http;
 using Shop.WebApi.Models;
 using Shop.WebApi.Repositories;
 using Shop.WebApi.Services;
+using Shop.WebApi.Services.Interfaces;
 using Shop.WebApi.Validators;
 
 namespace Shop.WebApi.Controllers
@@ -15,31 +16,26 @@ namespace Shop.WebApi.Controllers
     {
         private Logger logger;
         private DbRepository dbRepository;
+        private ICachedSupplier _cachedSupplier;
 
-        private CachedSupplier CachedSupplier;
-        private Warehouse Warehouse;
-        private Dealer1 Dealer1;
-        private Dealer2 Dealer2;
 
-        public ShopController()
+
+        public ShopController(ICachedSupplier cachedSupplier)
         {
             dbRepository = RepositoryFactory.CreateDbRepository();
             logger = Logger.Instance;
-            CachedSupplier = new CachedSupplier();
-            Warehouse = new Warehouse();
-            Dealer1 = new Dealer1();
-            Dealer2 = new Dealer2();
+            _cachedSupplier = cachedSupplier;
         }
 
         [HttpGet]
         [Route("shop/getarticle")]
         public Article GetArtice(int id, int maxExpectedPrice = 200)
         {
-            Article article = CachedSupplier.GetArticle(id, maxExpectedPrice);
+            Article article = _cachedSupplier.GetArticle(id, maxExpectedPrice);
 
             if (article != null)
             {
-                CachedSupplier.SetArticle(article);
+                _cachedSupplier.SetArticle(article);
             }
 
             return article;
@@ -59,7 +55,7 @@ namespace Shop.WebApi.Controllers
 
                 logger.Debug("Trying to sell article with id=" + id);
 
-                CachedSupplier.MarkArticleAsSold(article, buyerId);
+                _cachedSupplier.MarkArticleAsSold(article, buyerId);
 
                 List<string> errormessages = article.Validate();
 

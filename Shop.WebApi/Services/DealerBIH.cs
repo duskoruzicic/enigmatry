@@ -2,15 +2,16 @@
 using System.Net.Http;
 using Newtonsoft.Json;
 using Shop.WebApi.Models;
+using Shop.WebApi.Services.Interfaces;
 
 namespace Shop.WebApi.Services
 {
-    public class Dealer2 : ArticleStorage, IArticleStorage
+    public class DealerBIH : ArticleStorage, IDealerBIH
     {
         private readonly string _supplierUrl;
         private readonly ApiCaller _apicaller;
 
-        public Dealer2()
+        public DealerBIH()
         {
             _supplierUrl = ConfigurationManager.AppSettings["Dealer2Url"];
             _apicaller = new ApiCaller();

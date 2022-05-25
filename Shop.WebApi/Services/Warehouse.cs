@@ -1,9 +1,10 @@
 ﻿using System;
 using Shop.WebApi.Models;
+using Shop.WebApi.Services.Interfaces;
 
 namespace Shop.WebApi.Services
 {
-    public class Warehouse : ArticleStorage, IArticleStorage
+    public class Warehouse : ArticleStorage, IWarehouse
     {
         protected override bool ArticleInInventory(int id)
         {
@@ -20,7 +21,7 @@ namespace Shop.WebApi.Services
             };
 
             return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article :
-                                                                new Dealer1().GetArticle(id, maxExpectedPrice);
+                                                                new DealerRS().GetArticle(id, maxExpectedPrice);
         }
     }
 }

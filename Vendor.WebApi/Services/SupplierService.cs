@@ -1,5 +1,6 @@
-﻿using System;
-using Vendor.WebApi.Models;
+﻿using Shared.Models;
+using Shared.Models.Data;
+using System;
 
 namespace Vendor.WebApi.Services
 {
@@ -12,7 +13,7 @@ namespace Vendor.WebApi.Services
 
         public Article GetArticle(int id)
         {
-            Models.Data.ArticleData articleData = new Models.Data.ArticleData()
+           ArticleData articleData = new ArticleData()
             {
                 ID = id,
                 Name = $"Article {id}",

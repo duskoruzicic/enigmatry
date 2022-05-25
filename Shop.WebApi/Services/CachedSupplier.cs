@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Shop.WebApi.Models;
+using Shared.Models;
 using Shop.WebApi.Services.Interfaces;
 
 namespace Shop.WebApi.Services

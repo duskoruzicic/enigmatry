@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Vendor.WebApi.Models;
-using Vendor.WebApi.Repositories;
 using Vendor.WebApi.Services;
-using Vendor.WebApi.Validators;
+using Shared.Repositories;
+using Shared.Models;
+using Shared.Validators;
+using Shared.Services;
 
 namespace Vendor.WebApi.Controllers
 {

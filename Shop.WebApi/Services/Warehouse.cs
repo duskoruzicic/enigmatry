@@ -1,5 +1,6 @@
 ﻿using System;
-using Shop.WebApi.Models;
+using Shared.Models;
+using Shared.Models.Data;
 using Shop.WebApi.Services.Interfaces;
 
 namespace Shop.WebApi.Services
@@ -13,12 +14,14 @@ namespace Shop.WebApi.Services
 
         public override Article GetArticle(int id, int maxExpectedPrice)
         {
-            Article article = new Article()
+            ArticleData articleData = new ArticleData()
             {
                 ID = id,
                 Name = $"Article {id}",
                 Price = new Random().Next(100, 500)
             };
+
+            RealArticle article = new RealArticle(articleData);
 
             return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article :
                                                                 new DealerRS().GetArticle(id, maxExpectedPrice);

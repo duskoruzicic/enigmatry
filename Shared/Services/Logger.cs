@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shop.WebApi.Services
+namespace Shared.Services
 {
     public class Logger
     {

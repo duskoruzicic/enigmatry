@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Vendor.WebApi.Models;
 
-namespace Vendor.WebApi.Validators
+namespace Shared.Validators
 {
     public static class ArticleValidator
     {
@@ -21,7 +21,7 @@ namespace Vendor.WebApi.Validators
         }
 
 
-        private static string ValidateName(Article article)
+        private static string ValidateName(Article article) 
         {
             return string.IsNullOrEmpty(article.Name) ? "Article name is mandatory." : string.Empty;
         }

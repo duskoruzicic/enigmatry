@@ -1,11 +1,12 @@
 ﻿using System;
-using Vendor.WebApi.Models.Data;
+using Shared.Models;
+using Shared.Models.Data;
 
-namespace Vendor.WebApi.Models
+namespace Shared.Models
 {
     public class RealArticle : Article
     {
-        public RealArticle(ArticleData articleData)
+        public RealArticle(ArticleData articleData) 
         {
             this.Name = articleData.Name;
             this.Price = articleData.Price;

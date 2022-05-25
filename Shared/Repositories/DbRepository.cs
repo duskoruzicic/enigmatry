@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Vendor.WebApi.Models;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Vendor.WebApi.Repositories
+namespace Shared.Repositories
 {
     public class DbRepository
     {

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Shop.WebApi.Models;
-using Shop.WebApi.Repositories;
+using Shared.Models;
+using Shared.Repositories;
+using Shared.Services;
+using Shared.Validators;
 using Shop.WebApi.Services;
 using Shop.WebApi.Services.Interfaces;
-using Shop.WebApi.Validators;
+
 
 namespace Shop.WebApi.Controllers
 {

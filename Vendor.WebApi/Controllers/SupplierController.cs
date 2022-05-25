@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Web.Http;
 using Vendor.WebApi.Models;
+using Vendor.WebApi.Repositories;
 using Vendor.WebApi.Services;
 
 namespace Vendor.WebApi.Controllers
 {
     public class SupplierController : ApiController
     {
-        private DatabaseDriver DatabaseDriver;
+
         private Logger logger;
+        private DbRepository _dbRepository;
 
         private SupplierService _supplierService;
 
         public SupplierController()
         {
-            DatabaseDriver = new DatabaseDriver();
+            _dbRepository = RepositoryFactory.CreateDbRepository();
             logger = new Logger();
             _supplierService = new SupplierService();
         }
@@ -40,7 +42,7 @@ namespace Vendor.WebApi.Controllers
 
             try
             {
-                DatabaseDriver.Save(article);
+                _dbRepository.Save(article);
                 logger.Info("Article with id=" + id + " is sold.");
             }
             catch (ArgumentNullException ex)

@@ -129,7 +129,8 @@
     <Compile Include="Models\Data\ArticleData.cs" />
     <Compile Include="Models\FakeArticle.cs" />
     <Compile Include="Models\RealArticle.cs" />
-    <Compile Include="Services\DatabaseDriver.cs" />
+    <Compile Include="Repositories\DbRepository.cs" />
+    <Compile Include="Repositories\RepositoryFactory.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Global.asax.cs">

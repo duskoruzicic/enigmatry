@@ -5,35 +5,35 @@ using Shop.WebApi.Models;
 
 namespace Shop.WebApi.Services
 {
-    public class Dealer2
+    public class Dealer2 : ArticleStorage, IArticleStorage
     {
         private readonly string _supplierUrl;
+        private readonly ApiCaller _apicaller;
 
         public Dealer2()
         {
             _supplierUrl = ConfigurationManager.AppSettings["Dealer2Url"];
+            _apicaller = new ApiCaller();
         }
 
-        public bool ArticleInInventory(int id)
+        protected override bool ArticleInInventory(int id)
         {
-            using (var client = new HttpClient())
-            {
-                var response = client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{_supplierUrl}/Supplier/ArticleInInventory/{id}"));
-                var hasArticle = JsonConvert.DeserializeObject<bool>(response.Result.Content.ReadAsStringAsync().Result);
 
-                return hasArticle;
-            }
+            var response = _apicaller.SendRequest(_supplierUrl, id);
+            var hasArticle = JsonConvert.DeserializeObject<bool>(response.Result.Content.ReadAsStringAsync().Result);
+
+            return hasArticle;
+
         }
 
         public Article GetArticle(int id, int maxExpectedPrice)
         {
-            using (var client = new HttpClient())
-            {
-                var response = client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{_supplierUrl}/Supplier/ArticleInInventory/{id}"));
-                var article = JsonConvert.DeserializeObject<Article>(response.Result.Content.ReadAsStringAsync().Result);
 
-                return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article : null;
-            }
+            var response = _apicaller.SendRequest(_supplierUrl, id);
+            var article = JsonConvert.DeserializeObject<Article>(response.Result.Content.ReadAsStringAsync().Result);
+
+            return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article : null;
+
         }
     }
 }

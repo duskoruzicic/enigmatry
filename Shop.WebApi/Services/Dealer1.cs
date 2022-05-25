@@ -34,7 +34,7 @@ namespace Shop.WebApi.Services
             var response = _apicaller.SendRequest(_supplierUrl, id);
             var article = _jsonSerializer.Deserialize<Article>(response.Result.Content.ReadAsStringAsync().Result);
 
-            return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article : new Dealer2().GetArticle(id, maxExpectedPrice);
+            return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article : new Dealer2().GetArticle(id, maxExpectedPrice);
 
         }
     }

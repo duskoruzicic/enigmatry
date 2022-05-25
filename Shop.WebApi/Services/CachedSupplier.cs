@@ -15,7 +15,7 @@ namespace Shop.WebApi.Services
         {
             Article article;
             _cachedArticles.TryGetValue(id, out article);
-            return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article :
+            return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article :
                                                                         new Warehouse().GetArticle(id, maxExpectedPrice);
         }
 

@@ -32,7 +32,7 @@ namespace Shop.WebApi.Services
             var response = _apicaller.SendRequest(_supplierUrl, id);
             var article = JsonConvert.DeserializeObject<Article>(response.Result.Content.ReadAsStringAsync().Result);
 
-            return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article : null;
+            return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article : null;
 
         }
     }

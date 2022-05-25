@@ -15,11 +15,11 @@ namespace Shop.WebApi.Services
             Article article = new Article()
             {
                 ID = id,
-                Name_of_article = $"Article {id}",
-                ArticlePrice = new Random().Next(100, 500)
+                Name = $"Article {id}",
+                Price = new Random().Next(100, 500)
             };
 
-            return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article :
+            return this.ArticleInInventory(id) && article.Price <= maxExpectedPrice ? article :
                                                                 new Dealer1().GetArticle(id, maxExpectedPrice);
         }
     }

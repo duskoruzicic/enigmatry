@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Shop.WebApi.Models;
 using Shop.WebApi.Repositories;
 using Shop.WebApi.Services;
+using Shop.WebApi.Validators;
 
 namespace Shop.WebApi.Controllers
 {
@@ -42,7 +47,7 @@ namespace Shop.WebApi.Controllers
 
         [HttpPost]
         [Route("shop/buyarticle")]
-        public void BuyArticle(Article article, int buyerId)
+        public HttpResponseMessage BuyArticle(Article article, int buyerId)
         {
             var id = article.ID;
             try
@@ -56,9 +61,18 @@ namespace Shop.WebApi.Controllers
 
                 CachedSupplier.MarkArticleAsSold(article, buyerId);
 
+                List<string> errormessages = article.Validate();
+
+                if (errormessages.Any())
+                {
+                    logger.Error(string.Join(",", errormessages));
+                    return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                }
 
                 dbRepository.Save(article);
                 logger.Info("Article with id " + id + " is sold.");
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (ArgumentNullException ex)
             {
@@ -68,6 +82,7 @@ namespace Shop.WebApi.Controllers
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
     }

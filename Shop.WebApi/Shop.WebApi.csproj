@@ -143,6 +143,7 @@
     <Compile Include="Services\Warehouse.cs" />
     <Compile Include="Services\Dealer1.cs" />
     <Compile Include="Services\Dealer2.cs" />
+    <Compile Include="Validators\ArticleValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -54,11 +54,9 @@ namespace Shop.WebApi.Controllers
 
                 logger.Debug("Trying to sell article with id=" + id);
 
-                article.IsSold = true;
-                article.SoldDate = DateTime.Now;
-                article.BuyerUserId = buyerId;
+                CachedSupplier.MarkArticleAsSold(article, buyerId);
 
-           
+
                 dbRepository.Save(article);
                 logger.Info("Article with id " + id + " is sold.");
             }

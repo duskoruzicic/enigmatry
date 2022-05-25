@@ -9,5 +9,6 @@ namespace Shop.WebApi.Services
     public interface IArticleStorage
     {
         Article GetArticle(int id, int maxExpectedPrice);
+        Article MarkArticleAsSold(Article article, int buyerId);
     }
 }

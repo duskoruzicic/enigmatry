@@ -19,7 +19,7 @@ namespace Shop.WebApi.Controllers
         public ShopController()
         {
             dbRepository = RepositoryFactory.CreateDbRepository();
-            logger = new Logger();
+            logger = Logger.Instance;
             CachedSupplier = new CachedSupplier();
             Warehouse = new Warehouse();
             Dealer1 = new Dealer1();

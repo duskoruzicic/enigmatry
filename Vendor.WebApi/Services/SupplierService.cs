@@ -3,7 +3,7 @@ using Vendor.WebApi.Models;
 
 namespace Vendor.WebApi.Services
 {
-    public class SupplierService
+    public class SupplierService : ISupplierService
     {
         private bool ArticleInInventory(int id)
         {
@@ -22,6 +22,16 @@ namespace Vendor.WebApi.Services
             Article article = (Article)new RealArticle(articleData);
 
             return ArticleInInventory(id) ? article : new FakeArticle();
+        }
+
+        public Article MarkArticleAsSold(Article article, int buyerId)
+        {
+
+            article.IsSold = true;
+            article.SoldDate = DateTime.Now;
+            article.BuyerId = buyerId;
+
+            return article;
         }
     }
 }

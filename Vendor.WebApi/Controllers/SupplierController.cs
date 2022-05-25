@@ -16,13 +16,13 @@ namespace Vendor.WebApi.Controllers
         private Logger logger;
 
 
-        private SupplierService _supplierService;
+        private ISupplierService _supplierService;
         private DbRepository _dbRepository;
 
-        public SupplierController()
+        public SupplierController(ISupplierService supplierService)
         {
             logger = Logger.Instance;
-            _supplierService = new SupplierService();
+            _supplierService = supplierService;
             _dbRepository = RepositoryFactory.CreateDbRepository();
         }
 
@@ -47,9 +47,7 @@ namespace Vendor.WebApi.Controllers
 
                 logger.Debug("Trying to sell article with id=" + id);
 
-                article.IsSold = true;
-                article.SoldDate = DateTime.Now;
-                article.BuyerId = buyerId;
+                _supplierService.MarkArticleAsSold(article, buyerId);
 
                 List<string> errormessages = article.Validate();
 

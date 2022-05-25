@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using Autofac.Integration.WebApi;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace Vendor.WebApi
@@ -9,6 +10,9 @@ namespace Vendor.WebApi
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            var webApiResolver = new AutofacWebApiDependencyResolver(ContainerInitializer.GetContainer());
+            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
         }
     }
 }

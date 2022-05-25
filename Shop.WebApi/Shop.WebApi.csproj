@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="ApiCaller.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="JsonSerializer.cs" />
     <Compile Include="Repositories\DbRepository.cs" />
     <Compile Include="Repositories\RepositoryFactory.cs" />
     <Compile Include="Services\ArticleStorage.cs" />

@@ -26,7 +26,7 @@ namespace Shop.WebApi.Services
 
         }
 
-        public Article GetArticle(int id, int maxExpectedPrice)
+        public override Article GetArticle(int id, int maxExpectedPrice)
         {
 
             var response = _apicaller.SendRequest(_supplierUrl, id);

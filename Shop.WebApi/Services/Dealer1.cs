@@ -9,17 +9,20 @@ namespace Shop.WebApi.Services
     {
         private readonly string _supplierUrl;
         private readonly ApiCaller _apicaller;
+        private readonly JsonSerializer _jsonSerializer;
+
 
         public Dealer1()
         {
             _supplierUrl = ConfigurationManager.AppSettings["Dealer2Url"];
             _apicaller = new ApiCaller();
+            _jsonSerializer = new JsonSerializer();
         }
 
         protected override bool ArticleInInventory(int id)
         {
             var response = _apicaller.SendRequest(_supplierUrl, id);
-            var hasArticle = JsonConvert.DeserializeObject<bool>(response.Result.Content.ReadAsStringAsync().Result);
+            var hasArticle = _jsonSerializer.Deserialize<bool>(response.Result.Content.ReadAsStringAsync().Result);
 
             return hasArticle;
 
@@ -29,7 +32,7 @@ namespace Shop.WebApi.Services
         {
 
             var response = _apicaller.SendRequest(_supplierUrl, id);
-            var article = JsonConvert.DeserializeObject<Article>(response.Result.Content.ReadAsStringAsync().Result);
+            var article = _jsonSerializer.Deserialize<Article>(response.Result.Content.ReadAsStringAsync().Result);
 
             return this.ArticleInInventory(id) && article.ArticlePrice <= maxExpectedPrice ? article : new Dealer2().GetArticle(id, maxExpectedPrice);
 

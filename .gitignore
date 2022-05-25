@@ -1,0 +1,6 @@
+/packages
+/.vs
+/Shop.WebApi/obj
+/Shop.WebApi/bin
+/Vendor.WebApi/obj
+/Vendor.WebApi/bin

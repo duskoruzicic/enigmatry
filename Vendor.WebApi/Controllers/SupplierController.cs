@@ -21,7 +21,7 @@ namespace Vendor.WebApi.Controllers
 
         public SupplierController()
         {
-            logger = new Logger();
+            logger = Logger.Instance;
             _supplierService = new SupplierService();
             _dbRepository = RepositoryFactory.CreateDbRepository();
         }

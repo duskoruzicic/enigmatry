@@ -41,22 +41,24 @@ namespace Shop.WebApi.Controllers
         }
 
         [HttpPost]
+        [Route("shop/buyarticle")]
         public void BuyArticle(Article article, int buyerId)
         {
             var id = article.ID;
-            if (article == null)
-            {
-                throw new Exception("Could not order article");
-            }
-
-            logger.Debug("Trying to sell article with id=" + id);
-
-            article.IsSold = true;
-            article.SoldDate = DateTime.Now;
-            article.BuyerUserId = buyerId;
-
             try
             {
+                if (article == null)
+                {
+                    throw new ArgumentNullException("Could not order article");
+                }
+
+                logger.Debug("Trying to sell article with id=" + id);
+
+                article.IsSold = true;
+                article.SoldDate = DateTime.Now;
+                article.BuyerUserId = buyerId;
+
+           
                 dbRepository.Save(article);
                 logger.Info("Article with id " + id + " is sold.");
             }
@@ -65,8 +67,9 @@ namespace Shop.WebApi.Controllers
                 logger.Error("Could not save article with id " + id);
                 throw new Exception("Could not save article with id");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.Error(ex.Message);
             }
         }
     }
